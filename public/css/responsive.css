@@ -1,0 +1,373 @@
+/* Responsive Design */
+
+/* Tablets (768px and below) */
+@media (max-width: 1024px) {
+    .game-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .info-panel {
+        order: 2;
+    }
+
+    .board-wrapper {
+        order: 1;
+        height: 400px;
+    }
+
+    .game-controls {
+        position: static;
+        transform: none;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .chat-panel {
+        position: static;
+        width: 100%;
+        height: auto;
+        min-height: 150px;
+        margin-top: 10px;
+    }
+
+    .menu-container {
+        max-width: 90%;
+        padding: 30px 20px;
+    }
+
+    .logo h1 {
+        font-size: 2.5em;
+    }
+
+    .btn {
+        padding: 12px 20px;
+        font-size: 0.95em;
+    }
+}
+
+/* Mobile Phones (480px and below) */
+@media (max-width: 768px) {
+    body {
+        overflow-y: auto;
+    }
+
+    .app-container {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .screen {
+        position: static;
+        height: auto;
+        min-height: 100vh;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .screen.hidden {
+        display: none;
+    }
+
+    /* Menu */
+    .menu-container {
+        max-width: 95%;
+        padding: 20px 15px;
+        margin: 20px auto;
+    }
+
+    .logo h1 {
+        font-size: 2em;
+    }
+
+    .logo p {
+        font-size: 1em;
+    }
+
+    .menu-buttons {
+        gap: 10px;
+    }
+
+    .input-field {
+        padding: 10px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    .btn {
+        padding: 12px 16px;
+        font-size: 0.9em;
+        letter-spacing: 0.3px;
+    }
+
+    /* Game */
+    .game-container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 10px;
+        height: auto;
+    }
+
+    .info-panel {
+        padding: 15px 10px;
+    }
+
+    .timer-display {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .timer-value {
+        font-size: 1.5em;
+    }
+
+    .board-wrapper {
+        height: 350px;
+        padding: 10px;
+    }
+
+    #ludoBoard {
+        width: 100%;
+        height: 100%;
+    }
+
+    .players-info {
+        gap: 8px;
+    }
+
+    .player-info {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+    /* Controls */
+    .game-controls {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 10px auto;
+        padding: 15px;
+    }
+
+    .btn-large {
+        padding: 14px 24px;
+        font-size: 1.1em;
+        max-width: 100%;
+    }
+
+    /* Chat */
+    .chat-panel {
+        position: static;
+        width: 100%;
+        height: 200px;
+        max-height: 40vh;
+        margin-top: 10px;
+    }
+
+    .chat-messages {
+        font-size: 0.85em;
+    }
+
+    .chat-input input {
+        font-size: 16px; /* Prevents zoom */
+    }
+
+    /* Rooms */
+    .room-container {
+        width: 95%;
+        padding: 20px 15px;
+        margin: 20px auto;
+    }
+
+    .rooms-list {
+        grid-template-columns: 1fr;
+    }
+
+    .players-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .room-controls {
+        flex-direction: column;
+    }
+
+    .room-controls button {
+        width: 100%;
+    }
+
+    /* Modal */
+    .modal {
+        width: 95%;
+        padding: 25px 15px;
+        max-width: 90%;
+    }
+
+    .modal h2 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .difficulty-options {
+        margin: 15px 0;
+    }
+
+    .btn-difficulty {
+        padding: 16px;
+        font-size: 1.1em;
+    }
+
+    /* Leaderboard */
+    .leaderboard-container {
+        width: 95%;
+        padding: 20px 15px;
+        margin: 20px auto;
+    }
+
+    .leaderboard-table {
+        font-size: 0.9em;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 8px 5px;
+    }
+
+    /* Game Over */
+    .game-over-modal h2 {
+        font-size: 1.6em;
+    }
+
+    .game-over-buttons {
+        flex-direction: column;
+    }
+
+    .game-over-buttons button {
+        width: 100%;
+    }
+
+    .score-item {
+        padding: 8px;
+        font-size: 0.95em;
+    }
+}
+
+/* Extra Small Phones (320px and below) */
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: 1.8em;
+    }
+
+    .logo p {
+        font-size: 0.9em;
+    }
+
+    .menu-buttons {
+        gap: 8px;
+    }
+
+    .btn {
+        padding: 10px 12px;
+        font-size: 0.85em;
+    }
+
+    .board-wrapper {
+        height: 300px;
+    }
+
+    .timer-value {
+        font-size: 1.3em;
+    }
+
+    .player-info {
+        font-size: 0.85em;
+        padding: 6px;
+    }
+
+    .modal {
+        padding: 20px 12px;
+    }
+
+    .form-group label {
+        font-size: 0.9em;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 6px 3px;
+        font-size: 0.8em;
+    }
+
+    .room-card {
+        padding: 12px;
+    }
+
+    .room-card h3 {
+        font-size: 0.95em;
+    }
+}
+
+/* Landscape Mode */
+@media (orientation: landscape) and (max-height: 600px) {
+    .game-container {
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .info-panel,
+    .board-wrapper {
+        height: auto;
+        min-height: 300px;
+    }
+
+    .game-controls {
+        margin: 5px auto;
+        padding: 10px;
+    }
+
+    .chat-panel {
+        height: auto;
+        min-height: 150px;
+        max-height: auto;
+    }
+}
+
+/* Touch Device Enhancements */
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        min-height: 44px; /* Optimal touch target size */
+        min-width: 44px;
+    }
+
+    .btn:active {
+        opacity: 0.8;
+    }
+
+    .input-field {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    .room-card {
+        min-height: 100px;
+    }
+
+    .token {
+        min-width: 30px;
+        min-height: 30px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+    }
+
+    .screen.hidden {
+        display: none;
+    }
+
+    .btn {
+        border: 1px solid #000;
+    }
+}
