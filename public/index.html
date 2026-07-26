@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9ja Ludo - Multiplayer Game</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/board.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <!-- Main Menu -->
+        <div id="mainMenu" class="screen">
+            <div class="menu-container">
+                <div class="logo">
+                    <h1>9ja Ludo</h1>
+                    <p>Play • Win • Earn</p>
+                </div>
+
+                <div class="menu-buttons">
+                    <input type="text" id="playerNameInput" class="input-field" placeholder="Enter your name" maxlength="20">
+                    
+                    <button class="btn btn-primary" onclick="gameController.showQuickMatchScreen()">
+                        ⚡ Quick Match
+                    </button>
+                    
+                    <button class="btn btn-primary" onclick="gameController.showBotScreen()">
+                        🤖 Play vs Bot
+                    </button>
+                    
+                    <button class="btn btn-secondary" onclick="gameController.showRoomScreen()">
+                        🏠 Create/Join Room
+                    </button>
+                    
+                    <button class="btn btn-secondary" onclick="gameController.showLocalMultiplayer()">
+                        👥 Local Multiplayer
+                    </button>
+                    
+                    <button class="btn btn-secondary" onclick="gameController.showLeaderboard()">
+                        🏆 Leaderboard
+                    </button>
+                </div>
+
+                <div class="footer-info">
+                    <p>Online Players: <span id="onlineCount">0</span></p>
+                    <p>Version 1.0.0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Match Screen -->
+        <div id="quickMatchScreen" class="screen hidden">
+            <div class="overlay-container">
+                <div class="modal">
+                    <h2>Finding Opponent...</h2>
+                    <div class="spinner"></div>
+                    <p id="queuePosition">Position in queue: 1</p>
+                    <button class="btn btn-secondary" onclick="gameController.cancelQuickMatch()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bot Difficulty Screen -->
+        <div id="botScreen" class="screen hidden">
+            <div class="overlay-container">
+                <div class="modal">
+                    <h2>Select Difficulty</h2>
+                    <div class="difficulty-options">
+                        <button class="btn btn-difficulty" onclick="gameController.startBotGame('easy')">
+                            🌱 Easy
+                        </button>
+                        <button class="btn btn-difficulty" onclick="gameController.startBotGame('medium')">
+                            ⚔️ Medium
+                        </button>
+                        <button class="btn btn-difficulty" onclick="gameController.startBotGame('hard')">
+                            ⚡ Hard
+                        </button>
+                    </div>
+                    <button class="btn btn-secondary" onclick="gameController.backToMenu()">
+                        Back
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room Screen -->
+        <div id="roomScreen" class="screen hidden">
+            <div class="room-container">
+                <h2>Game Rooms</h2>
+                <div class="room-controls">
+                    <button class="btn btn-primary" onclick="gameController.showCreateRoomForm()">
+                        ➕ Create Room
+                    </button>
+                    <button class="btn btn-primary" onclick="gameController.showJoinRoomForm()">
+                        🔗 Join Room
+                    </button>
+                </div>
+                <div id="roomsList" class="rooms-list"></div>
+            </div>
+        </div>
+
+        <!-- Create Room Form -->
+        <div id="createRoomForm" class="screen hidden">
+            <div class="overlay-container">
+                <div class="modal">
+                    <h2>Create Room</h2>
+                    <div class="form-group">
+                        <label>Room Name</label>
+                        <input type="text" id="roomNameInput" class="input-field" placeholder="Enter room name">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="privateRoomCheckbox">
+                            Private Room (with code)
+                        </label>
+                    </div>
+                    <button class="btn btn-primary" onclick="gameController.createRoom()">
+                        Create
+                    </button>
+                    <button class="btn btn-secondary" onclick="gameController.backToMenu()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Join Room Form -->
+        <div id="joinRoomForm" class="screen hidden">
+            <div class="overlay-container">
+                <div class="modal">
+                    <h2>Join Room</h2>
+                    <div class="form-group">
+                        <label>Room Code</label>
+                        <input type="text" id="roomCodeInput" class="input-field" placeholder="Enter room code" maxlength="6">
+                    </div>
+                    <button class="btn btn-primary" onclick="gameController.joinRoom()">
+                        Join
+                    </button>
+                    <button class="btn btn-secondary" onclick="gameController.backToMenu()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Waiting Room -->
+        <div id="waitingRoom" class="screen hidden">
+            <div class="room-container">
+                <h2>Room: <span id="roomNameDisplay"></span></h2>
+                <div class="room-code" id="roomCodeDisplay"></div>
+                
+                <div class="players-list">
+                    <h3>Players (<span id="playerCount">1</span>/4)</h3>
+                    <div id="playersList" class="players-grid"></div>
+                </div>
+
+                <div class="room-controls">
+                    <button class="btn btn-primary" id="readyBtn" onclick="gameController.toggleReady()">
+                        ✓ Ready
+                    </button>
+                    <button class="btn btn-secondary" onclick="gameController.leaveRoom()">
+                        Leave Room
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Board -->
+        <div id="gameBoard" class="screen hidden">
+            <div class="game-container">
+                <!-- Game Info Panel -->
+                <div class="info-panel">
+                    <div class="timer-display">
+                        <div class="match-timer">
+                            <span class="timer-label">Match:</span>
+                            <span id="matchTimer" class="timer-value">10:00</span>
+                        </div>
+                        <div class="turn-timer">
+                            <span class="timer-label">Turn:</span>
+                            <span id="turnTimer" class="timer-value">10</span>s
+                        </div>
+                    </div>
+
+                    <div class="players-info" id="playersInfo"></div>
+                </div>
+
+                <!-- Ludo Board -->
+                <div class="board-wrapper">
+                    <svg id="ludoBoard" width="500" height="500" viewBox="0 0 500 500"></svg>
+                </div>
+
+                <!-- Game Controls -->
+                <div class="game-controls">
+                    <button class="btn btn-large" id="rollBtn" onclick="gameController.rollDice()" disabled>
+                        🎲 Roll Dice
+                    </button>
+                    <div id="diceResult" class="dice-result hidden">
+                        You rolled: <span id="diceValue">0</span>
+                    </div>
+                </div>
+
+                <!-- Chat -->
+                <div class="chat-panel">
+                    <div id="chatMessages" class="chat-messages"></div>
+                    <div class="chat-input">
+                        <input type="text" id="chatInput" placeholder="Send message..." onkeypress="if(event.key==='Enter') gameController.sendMessage()">
+                        <button onclick="gameController.sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="screen hidden">
+            <div class="overlay-container">
+                <div class="modal game-over-modal">
+                    <h2 id="gameOverTitle">You Won!</h2>
+                    <div id="finalScores" class="final-scores"></div>
+                    <div id="gameStats" class="game-stats"></div>
+                    <div class="game-over-buttons">
+                        <button class="btn btn-primary" onclick="gameController.backToMenu()">
+                            🏠 Home
+                        </button>
+                        <button class="btn btn-secondary" onclick="gameController.rematch()">
+                            🔄 Rematch
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Screen -->
+        <div id="leaderboardScreen" class="screen hidden">
+            <div class="leaderboard-container">
+                <h2>🏆 Leaderboard</h2>
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Player</th>
+                            <th>Points</th>
+                            <th>Level</th>
+                            <th>Win Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody"></tbody>
+                </table>
+                <button class="btn btn-secondary" onclick="gameController.backToMenu()">
+                    Back
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="diceRollSound" src="sounds/dice-roll.mp3"></audio>
+    <audio id="moveSound" src="sounds/move.mp3"></audio>
+    <audio id="captureSound" src="sounds/capture.mp3"></audio>
+    <audio id="homeSound" src="sounds/home.mp3"></audio>
+    <audio id="victorySound" src="sounds/victory.mp3"></audio>
+    <audio id="defeatSound" src="sounds/defeat.mp3"></audio>
+    <audio id="warningSound" src="sounds/warning.mp3"></audio>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/socket.js"></script>
+    <script src="js/gameEngine.js"></script>
+    <script src="js/boardRenderer.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/gameController.js"></script>
+    <script src="js/soundManager.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

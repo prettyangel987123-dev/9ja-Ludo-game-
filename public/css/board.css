@@ -1,0 +1,171 @@
+/* Ludo Board Styles */
+.board {
+    width: 100%;
+    height: 100%;
+}
+
+.board-square {
+    fill: white;
+    stroke: #333;
+    stroke-width: 1;
+}
+
+.board-square.safe-zone {
+    fill: #fff9e6;
+}
+
+.board-square.home-stretch {
+    fill: #f0f0f0;
+}
+
+.board-square.red { fill: #FFE6E6; }
+.board-square.red.safe-zone { fill: #FFD1D1; }
+
+.board-square.yellow { fill: #FFFAE6; }
+.board-square.yellow.safe-zone { fill: #FFF5CC; }
+
+.board-square.green { fill: #E6F7EE; }
+.board-square.green.safe-zone { fill: #CCF0E0; }
+
+.board-square.blue { fill: #E6F2FF; }
+.board-square.blue.safe-zone { fill: #CCE5FF; }
+
+.board-line {
+    stroke: #333;
+    stroke-width: 2;
+    fill: none;
+}
+
+.board-center {
+    fill: white;
+    stroke: #333;
+    stroke-width: 2;
+}
+
+/* Tokens */
+.token {
+    cursor: pointer;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    transition: all 0.3s ease;
+}
+
+.token:hover {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    transform: scale(1.1);
+}
+
+.token.selectable {
+    cursor: grab;
+}
+
+.token.selectable:active {
+    cursor: grabbing;
+}
+
+.token-circle {
+    stroke-width: 2;
+    stroke: white;
+}
+
+.token.red .token-circle {
+    fill: #FF6B6B;
+    stroke: #CC0000;
+}
+
+.token.yellow .token-circle {
+    fill: #FFD93D;
+    stroke: #FFB700;
+}
+
+.token.green .token-circle {
+    fill: #6BCB77;
+    stroke: #3AA560;
+}
+
+.token.blue .token-circle {
+    fill: #4D96FF;
+    stroke: #0066FF;
+}
+
+.token-number {
+    font-size: 12px;
+    font-weight: bold;
+    fill: white;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+}
+
+.token.highlighted .token-circle {
+    stroke-width: 3;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+}
+
+/* Home Positions */
+.home-position {
+    stroke: #999;
+    stroke-width: 1;
+    stroke-dasharray: 3,3;
+    fill: #f5f5f5;
+}
+
+/* Dice */
+.dice {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 2px solid #333;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dice.rolling {
+    animation: dice-roll 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes dice-roll {
+    0% { transform: rotateX(0deg) rotateY(0deg); }
+    50% { transform: rotateX(180deg) rotateY(180deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+/* Captured Tokens Indicator */
+.captured-tokens {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.captured-token {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    opacity: 0.5;
+    border: 2px solid white;
+}
+
+/* Board Decorations */
+.star {
+    fill: #FFD700;
+}
+
+.board-label {
+    font-size: 12px;
+    text-anchor: middle;
+    fill: #666;
+    pointer-events: none;
+}
+
+/* Position Numbers */
+.position-number {
+    font-size: 10px;
+    fill: #999;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+}
